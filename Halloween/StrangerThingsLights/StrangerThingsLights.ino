@@ -26,7 +26,7 @@
   static int SLEEP_TIME_MEDIUM = 131;
   static int SLEEP_TIME_LONG = 237;
   static int SLEEP_TIME_WARMUP = 1000;
-  static long SLEEP_TIME_LOOP = 30000;
+  static long SLEEP_TIME_LOOP = 3000;
 
   static int CRAZY_TRAIN_LOOPS = 300;
   static int CRAZY_TRAIN_LOOP_DELAY = 47;
@@ -101,45 +101,67 @@ void setup() {
 void loop() {
   
   if(!firstLoopDone){
-
+  
     for(int x=0; x<3;x++){
+      Serial.print("Warmup loop = ");
+      Serial.println(x);
       delay(SLEEP_TIME_WARMUP);
       digitalWrite(RELAY_1, ON);    
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_1, OFF);
       digitalWrite(RELAY_2, ON);   
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_2, OFF);
       digitalWrite(RELAY_3, ON);   
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_3, OFF);
       digitalWrite(RELAY_4, ON);   
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_4, OFF);
       digitalWrite(RELAY_5, ON);  
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_5, OFF);
       digitalWrite(RELAY_6, ON);  
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_6, OFF);
       digitalWrite(RELAY_7, ON);  
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_7, OFF);
       digitalWrite(RELAY_8, ON);  
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_8, OFF);
       digitalWrite(RELAY_R, HIGH);  
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_R, LOW);
       digitalWrite(RELAY_U, HIGH);    
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_U, LOW);
       digitalWrite(RELAY_N, HIGH);   
       delay(SLEEP_TIME_WARMUP);
+      digitalWrite(RELAY_N, LOW);
+      allOff(); // just to make sure everything is turned off ;)
+
+      delay(SLEEP_TIME_WARMUP);
+      Serial.println("All ON");
+      allOn();
+      delay(SLEEP_TIME_WARMUP);
+      Serial.println("All OFF");
       allOff();
+      delay(SLEEP_TIME_WARMUP);
+      Serial.println("All ON");
+      allOn();
+      delay(SLEEP_TIME_WARMUP);
+      Serial.println("All OFF");
+      allOff();
+    
     }
-    delay(SLEEP_TIME_WARMUP);
-    allOn();
-    delay(SLEEP_TIME_WARMUP);
-    allOff();
-    delay(SLEEP_TIME_WARMUP);
-    allOn();
-    delay(SLEEP_TIME_WARMUP);
-    allOff();
+    
+    
     delay(SLEEP_TIME_WARMUP);
 
 
     // Start with the floor lamps on
+    Serial.println("All Start lamps on");
     digitalWrite(RELAY_1, ON);    
     digitalWrite(RELAY_2, ON);   
     digitalWrite(RELAY_3, ON);
@@ -147,6 +169,7 @@ void loop() {
     firstLoopDone = true;
     
   }else{
+    Serial.println("Doing main light show!");
     
     if(thirteen == HIGH){
       digitalWrite(LED_BUILTIN, LOW);
@@ -265,50 +288,83 @@ void loop() {
     
     // x-mas 1
     digitalWrite(RELAY_4, ON);
-    delay(1700);
+    delay(1000);
     
     // x-mas 2
     digitalWrite(RELAY_5, ON);
-    delay(1700);
+    delay(1000);
 
     // x-mas 3
     digitalWrite(RELAY_6, ON);
-    delay(1700);
+    delay(1000);
 
     // turn off x-mas lighs
     digitalWrite(RELAY_4, OFF);
     digitalWrite(RELAY_5, OFF);
     digitalWrite(RELAY_6, OFF);
-    delay(1000);
+    delay(750);
     
     // R
     digitalWrite(RELAY_R, HIGH);
-    delay(1984);
-    digitalWrite(RELAY_R, LOW);
-    delay(1000);
+    delay(867);
+    //digitalWrite(RELAY_R, LOW);
+    //delay(1000);
     
     // U
     digitalWrite(RELAY_U, HIGH);
-    delay(1984);
-    digitalWrite(RELAY_U, LOW);
-    delay(1000);
+    delay(867);
+    //digitalWrite(RELAY_U, LOW);
+    //delay(1000);
     
     // N
     digitalWrite(RELAY_N, HIGH);
-    delay(1984);
-    digitalWrite(RELAY_N, LOW);
-    delay(750);
+    delay(867);
+    //digitalWrite(RELAY_N, LOW);
+    //delay(750);
     
-    // R U N
+    // flicker the R U N
+    // 1 - off
+    digitalWrite(RELAY_R, LOW);
+    digitalWrite(RELAY_U, LOW);
+    digitalWrite(RELAY_N, LOW);
+    delay(SLEEP_TIME_SHORT);
+    
+    // 2 - on
     digitalWrite(RELAY_R, HIGH);
     digitalWrite(RELAY_U, HIGH);
     digitalWrite(RELAY_N, HIGH);
-    delay(2000);
+    delay(SLEEP_TIME_SHORT);
+    
+    // 3 - off
+    digitalWrite(RELAY_R, LOW);
+    digitalWrite(RELAY_U, LOW);
+    digitalWrite(RELAY_N, LOW);
+    delay(SLEEP_TIME_SHORT);
+    
+    // 4 - on
+    digitalWrite(RELAY_R, HIGH);
+    digitalWrite(RELAY_U, HIGH);
+    digitalWrite(RELAY_N, HIGH);
+    delay(SLEEP_TIME_SHORT);
 
+    // 5 - off
+    digitalWrite(RELAY_R, LOW);
+    digitalWrite(RELAY_U, LOW);
+    digitalWrite(RELAY_N, LOW);
+    delay(SLEEP_TIME_SHORT);
+    
+    // 4 - on
+    digitalWrite(RELAY_R, HIGH);
+    digitalWrite(RELAY_U, HIGH);
+    digitalWrite(RELAY_N, HIGH);
+    delay(SLEEP_TIME_SHORT);
+
+    // **********
     //crazy train
+    // **********
     //(sizeof(CRAZY_TRAIN_LOOPS)/sizeof(int))
     Serial.print("Array size of relaysForCrazyTrain = ");
-      Serial.println((sizeof(relaysForCrazyTrain)/sizeof(int)));
+    Serial.println((sizeof(relaysForCrazyTrain)/sizeof(int)));
     for(int x= 0; x < CRAZY_TRAIN_LOOPS; x++){
       randomNumber = random(0,2);
       randomRelay = random(0,(sizeof(relaysForCrazyTrain)/sizeof(int)));
@@ -329,7 +385,7 @@ void loop() {
 
     //turn all off and then turn on the three floor lamps
     allOff();
-    delay(4313);
+    delay(1000);
 
     // Wake up the lights
     digitalWrite(RELAY_1, ON);    
@@ -353,7 +409,7 @@ void loop() {
     delay(SLEEP_TIME_LONG);
     digitalWrite(RELAY_3,ON);
     
-    delay(SLEEP_TIME_LOOP/4);
+    delay(SLEEP_TIME_LOOP);
 
     // keep some interest
     digitalWrite(RELAY_1, OFF);    
@@ -378,7 +434,7 @@ void loop() {
     delay(SLEEP_TIME_SHORT);
   
     
-    delay(SLEEP_TIME_LOOP/4);
+    delay(SLEEP_TIME_LOOP);
 
     // keep some interest
     digitalWrite(RELAY_4, OFF);    
@@ -404,7 +460,7 @@ void loop() {
     digitalWrite(RELAY_4, OFF);
   
 
-    delay(SLEEP_TIME_LOOP/4);
+    delay(SLEEP_TIME_LOOP);
      // keep some interest
     digitalWrite(RELAY_1, OFF);    
     delay(SLEEP_TIME_MEDIUM);
@@ -427,7 +483,7 @@ void loop() {
     digitalWrite(RELAY_1, ON);    
     delay(SLEEP_TIME_SHORT);
 
-    delay(SLEEP_TIME_LOOP/4);
+    delay(SLEEP_TIME_LOOP);
     
     
   }
