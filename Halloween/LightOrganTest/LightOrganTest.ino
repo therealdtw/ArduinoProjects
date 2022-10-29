@@ -10,9 +10,10 @@
   static int RELAY_4 = 2;
   static int RELAY_5 = 3;
   static int RELAY_6 = 4;
-
   static int RELAY_7 = 8;
   static int RELAY_8 = 9;
+
+  static int RELAY_TEST = RELAY_1;
   
   static int DELAY = 1000;
   static int ON = LOW;
@@ -59,31 +60,46 @@ void setup() {
   pinMode(RELAY_8, OUTPUT);
   
   digitalWrite(LED_BUILTIN, OFF);
-  delay(DELAY);
-  digitalWrite(LED_BUILTIN, ON);
-  delay(DELAY);
-  digitalWrite(LED_BUILTIN, OFF);
-  delay(DELAY);
-  digitalWrite(LED_BUILTIN, ON);
-  delay(DELAY);
-  digitalWrite(LED_BUILTIN, OFF;
-  delay(DELAY);
+
 
   allOff();
 
-  Serial.println("Setup tests done.");
-  Serial.print("ON = ");
-  Serial.println(ON);
-  Serial.print("OFF = ");
-  Serial.println(OFF);
+  Serial.println("Setup done.");
+  //Serial.print("ON = ");
+  //Serial.println(ON);
+  //Serial.print("OFF = ");
+  //Serial.println(OFF);
 }
 
 // the loop function runs over and over again forever
 void loop() {
+  Serial.println("void loop() { ... }");
 
-  digitalWrite(RELAY_1, OFF);
   delay(DELAY);
 
   digitalWrite(RELAY_1, ON);
-  delay(DELAY)
+  delay(DELAY);
+  digitalWrite(RELAY_1, OFF);
+  digitalWrite(RELAY_2, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_2, OFF);
+  digitalWrite(RELAY_3, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_3, OFF);
+  digitalWrite(RELAY_4, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_4, OFF);
+  digitalWrite(RELAY_5, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_5, OFF);
+  digitalWrite(RELAY_6, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_6, OFF);
+  digitalWrite(RELAY_7, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_7, OFF);
+  digitalWrite(RELAY_8, ON);
+  delay(DELAY);
+  digitalWrite(RELAY_8, OFF);
+  delay(DELAY);
 }
