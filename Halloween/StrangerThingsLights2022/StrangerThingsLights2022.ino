@@ -3,7 +3,7 @@
  
 */
   
-  // PIN to relay mapping
+  // RELAY_x to PIN mapping
   static int RELAY_1 = 5; // Chandelear
   static int RELAY_2 = 6; // Standing Lamp
   static int RELAY_3 = 7; // Spot LIght
