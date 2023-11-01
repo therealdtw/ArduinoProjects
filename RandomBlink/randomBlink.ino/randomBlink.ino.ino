@@ -25,7 +25,7 @@
 long randNumber;
 int low = 50;
 int high = 300;
-bool DO_SERIAL = false;
+bool DO_SERIAL = true;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
