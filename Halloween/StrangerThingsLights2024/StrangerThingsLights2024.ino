@@ -31,7 +31,8 @@
   static long SLEEP_TIME_LOOP = 3000;
 
   static int CRAZY_TRAIN_LOOPS = 300;
-  static int CRAZY_TRAIN_LOOP_DELAY = 47;
+  static int CRAZY_TRAIN_LOOP_DELAY_MIN = 47;
+  static int CRAZY_TRAIN_LOOP_DELAY_MAX = 142;
 
   boolean firstLoopDone = false;
   int thirteen = LOW;
@@ -139,20 +140,22 @@ void blink_crazy_train(){
     //(sizeof(CRAZY_TRAIN_LOOPS)/sizeof(int))
     Serial.print("Array size of relaysForCrazyTrain = ");
     Serial.println((sizeof(relaysForCrazyTrain)/sizeof(int)));
+
     for(int x= 0; x < CRAZY_TRAIN_LOOPS; x++){
       randomNumber = random(0,2);
       randomRelay = random(0,(sizeof(relaysForCrazyTrain)/sizeof(int)));
       int pin  = relaysForCrazyTrain[randomRelay];
       digitalWrite(pin, randomNumber);
       activity();
-      delay(random(SLEEP_TIME_SHORT,SLEEP_TIME_MEDIUM));
+      int randDelay = random(CRAZY_TRAIN_LOOP_DELAY_MIN,CRAZY_TRAIN_LOOP_DELAY_MAX);
+      delay(randDelay);
     }
 }
 // the setup function runs once when you press reset or power the board
 void setup() {
   //setup serial communications through the USB
   Serial.begin(115200);
-  randomSeed(45);
+  randomSeed(analogRead(A6)); // A6 is noted as an analog only pin 
   
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
@@ -202,14 +205,17 @@ void loop() {
     Serial.println("Doing main light show!");
 
     blink_relay_1();
-    Serial.println(Action = delay(2500)");
+    Serial.println("Action = delay(2500)");
     delay(2500);
     blink_relay_1();
     blink_crazy_train();
     allOff(0);
+    Serial.println("Action = delay(1000)");
     delay(1000);
     blink_relay_1();
     allOn(378);
+    Serial.println("Action = delay(1000)");
+    delay(1000);
 
     
     
